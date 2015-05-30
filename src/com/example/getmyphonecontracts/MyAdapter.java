@@ -46,16 +46,37 @@ public class MyAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = LayoutInflater.from(context);
+		/*LayoutInflater inflater = LayoutInflater.from(context);
 		layout = (LinearLayout) inflater.inflate(R.layout.adapter, null);
 		TextView name = (TextView) layout.findViewById(R.id.name);
 		TextView number = (TextView)layout.findViewById(R.id.number);
 		name.setText(list.get(position).getName());
-		number.setText(list.get(position).getNumber());
+		number.setText(list.get(position).getNumber()); */
+		ViewHolder holder;
+		if(convertView == null){
+			holder = new ViewHolder();
+			convertView= LayoutInflater.from(context).inflate(R.layout.adapter, null);
+			holder.name = (TextView)convertView.findViewById(R.id.name);
+			holder.number = (TextView) convertView.findViewById(R.id.number);
+			holder.name.setText(list.get(position).getName());
+			holder.number.setText(list.get(position).getNumber());
+			convertView.setTag(holder);
+		}
+		else{
+			holder = (ViewHolder) convertView.getTag();
+		}
 		
 		
 		
-		return layout;
+		return convertView;
+	}
+	
+	public static class ViewHolder{
+		
+		TextView number;
+		TextView name ;
+		
+		
 	}
 
 }
